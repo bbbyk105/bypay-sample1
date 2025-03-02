@@ -30,7 +30,7 @@ const SwiperComponent = () => {
       <SwiperSlide>
         <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh]">
           <Image
-            src="/dorayaki.jpg"
+            src="/camera.jpg"
             alt="Slide 1"
             fill
             className="object-cover"
@@ -42,7 +42,7 @@ const SwiperComponent = () => {
       <SwiperSlide>
         <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh]">
           <Image
-            src="/nigiyaka.jpg"
+            src="/headphone.jpg"
             alt="Slide 2"
             fill
             className="object-cover"

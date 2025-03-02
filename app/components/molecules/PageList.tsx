@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const navItems = [
   { href: "#", label: "ホーム" },
-  { href: "#", label: "メニュー" },
+  { href: "#", label: "商品一覧" },
   { href: "#", label: "購入方法" },
   { href: "/cart", icon: "/images/cart.svg" },
 ];
