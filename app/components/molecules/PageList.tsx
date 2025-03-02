@@ -12,7 +12,7 @@ const PageList = ({ className }: { className: string }) => {
   return (
     <div className={className}>
       {navItems.map(({ href, label, icon }) => (
-        <Link key={label} href={href}>
+        <Link key={`${href}-${label}`} href={href}>
           {icon ? (
             <Image src={icon} alt="icon" width={24} height={24} />
           ) : (
