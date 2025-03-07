@@ -10,12 +10,13 @@ const Header = () => {
   return (
     <nav
       className="
-        flex items-center 
-        py-4 
-        px-4 md:px-8 lg:px-[144px] 
-        relative
-        justify-between
-      "
+    flex items-center 
+    py-4 
+    px-4 md:px-8 lg:px-[144px] 
+    relative
+    justify-between
+    h-[64px] md:h-auto
+  "
     >
       {/* ロゴ */}
       <div>
