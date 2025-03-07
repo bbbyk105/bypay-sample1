@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const LineUp = () => {
   const products = [
@@ -37,33 +38,51 @@ const LineUp = () => {
   ];
 
   return (
-    <div className="mx-auto py-10 bg-gray-100">
-      <h1 className="text-xl md:text-3xl font-semibold mb-8 text-center text-gray-800">
-        LineUp
-      </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="flex flex-col items-center bg-white rounded-lg overflow-hidden"
-          >
-            <div className="relative w-full  h-64">
-              <Image
-                src={product.src || "https://via.placeholder.com/150"}
-                alt={product.name}
-                fill
-                className="object-cover"
-              />
+    <section className="min-h-screen py-16 bg-gradient-to-b from-gray-50 to-white flex flex-col justify-center">
+      <div className="container mx-auto px-4">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 relative">
+            <span className="relative z-10">LineUp</span>
+            <span className="absolute -bottom-1 left-0 w-12 h-1 bg-amber-400 z-0"></span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src={product.src || "/api/placeholder/500/500"}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-8">
+          <Link
+            href="/products"
+            className={cn(
+              buttonVariants({
+                variant: "default",
+                size: "lg",
+              }),
+              "bg-amber-500 hover:bg-amber-600 shadow-md group transition-all duration-300"
+            )}
+          >
+            <span>商品一覧を見る</span>
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
-      <div className="flex justify-center mt-8">
-        <Link href="/products" className={cn(buttonVariants({ size: "lg" }))}>
-          商品一覧を見る
-        </Link>
-      </div>
-    </div>
+    </section>
   );
 };
 
