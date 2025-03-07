@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 const LineUp = () => {
   const products = [
@@ -35,7 +38,7 @@ const LineUp = () => {
 
   return (
     <div className="mx-auto py-10 bg-gray-100">
-      <h1 className="text-sm md:text-3xl font-semibold mb-8 text-center text-gray-800">
+      <h1 className="text-xl md:text-3xl font-semibold mb-8 text-center text-gray-800">
         LineUp
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -56,10 +59,9 @@ const LineUp = () => {
         ))}
       </div>
       <div className="flex justify-center mt-8">
-        <button className="bg-[#E3AF2C] text-white font-medium py-2 px-8 rounded-full shadow hover:bg-gray-900 transition-colors">
+        <Link href="/products" className={cn(buttonVariants({ size: "lg" }))}>
           商品一覧を見る
-        </button>
-        <span></span>
+        </Link>
       </div>
     </div>
   );
