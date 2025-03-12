@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "../atoms/button";
 import { ArrowRight } from "lucide-react";
 
 const LineUp = () => {
