@@ -1,13 +1,9 @@
-import LineUp from "./components/molecules/LineUp";
-import Products from "./components/molecules/Products";
-import Hero from "./components/organisms/Hero";
+import HomeTemplate from "./components/template/Hometemplate";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <LineUp />
-      <Products />
+      <HomeTemplate />
     </>
   );
 }
