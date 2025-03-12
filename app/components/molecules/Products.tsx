@@ -1,9 +1,13 @@
-import React from "react";
+import React, { JSX } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { productImages, products } from "@/app/data/ProductData";
 
-const Products = ({}) => {
+export type ProductsProps = {
+  reverse?: boolean;
+};
+
+const Products = ({ reverse = false }: ProductsProps): JSX.Element => {
   return (
     <section className="bg-gradient-to-b from-gray-50 to-white py-16">
       {/* Hero Section - Minimalist style */}
