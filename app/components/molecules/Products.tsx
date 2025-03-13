@@ -2,6 +2,7 @@ import React, { JSX } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { productImages, products } from "@/app/data/ProductData";
+import { cn } from "@/lib/utils";
 
 export type ProductsProps = {
   reverse?: boolean;
@@ -12,7 +13,7 @@ const Products = ({ reverse = false }: ProductsProps): JSX.Element => {
     <section className="bg-gradient-to-b from-gray-50 to-white py-16">
       {/* Hero Section - Minimalist style */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className={cn("text-center mb-16", reverse && "hidden")}>
           <h2 className="text-5xl font-light tracking-wide text-amber-400 mb-3">
             PickUp
           </h2>
@@ -24,7 +25,12 @@ const Products = ({ reverse = false }: ProductsProps): JSX.Element => {
 
         {/* Featured Product - Modern asymmetric layout */}
         <div className="relative mb-32">
-          <div className="flex flex-col md:flex-row items-center">
+          <div
+            className={cn(
+              "flex flex-col md:flex-row items-center",
+              reverse && "md:flex-row-reverse"
+            )}
+          >
             <div className="md:w-3/5 z-10">
               <Image
                 src={productImages[0].src}
@@ -35,7 +41,14 @@ const Products = ({ reverse = false }: ProductsProps): JSX.Element => {
               />
             </div>
 
-            <div className="md:w-2/5 md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2 md:translate-x-8 bg-white p-8 rounded-xl shadow-xl z-20 mt-6 md:mt-0">
+            <div
+              className={cn(
+                "md:w-2/5 md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2 bg-white p-8 rounded-xl shadow-xl z-20 mt-6 md:mt-0",
+                reverse
+                  ? "md:-translate-x-8 md:left-0"
+                  : "md:translate-x-8 md:right-0"
+              )}
+            >
               <div className="border-l-4 border-amber-400 pl-4 mb-6">
                 <h3 className="text-2xl font-medium">ヘッドホン</h3>
                 <p className="text-amber-500 text-sm">PREMIUM COLLECTION</p>

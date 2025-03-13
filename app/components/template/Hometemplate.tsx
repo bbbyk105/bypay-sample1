@@ -8,6 +8,7 @@ const HomeTemplate = () => {
       <Hero />
       <LineUp />
       <Products />
+      <Products reverse />
     </>
   );
 };
