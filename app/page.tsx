@@ -1,13 +1,9 @@
-import LineUp from "./components/molecules/LineUp";
-import News from "./components/molecules/News";
-import Hero from "./components/organisms/Hero";
+import HomeTemplate from "./components/template/Hometemplate";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <News />
-      <LineUp />
+      <HomeTemplate />
     </>
   );
 }
