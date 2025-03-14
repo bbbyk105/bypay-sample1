@@ -1,7 +1,7 @@
 import React, { JSX } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { productImages, products } from "@/app/data/ProductData";
+import { productImages } from "@/app/data/ProductData";
 import { cn } from "@/lib/utils";
 
 export type ProductsProps = {
@@ -94,72 +94,6 @@ const Products = ({ reverse = false }: ProductsProps): JSX.Element => {
         </div>
 
         {/* Product Grid - Magazine-style layout */}
-        <h3 className="text-2xl font-light text-center mb-12">
-          <span className="inline-block border-b-2 border-amber-300 pb-2">
-            おすすめ商品
-          </span>
-        </h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {products.map((product) => (
-            <div key={product.id} className="group">
-              <div className="overflow-hidden rounded-lg mb-4 transition-transform duration-500 group-hover:shadow-lg">
-                <Link href={`/products/${product.id}`}>
-                  <div className="relative h-64">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                </Link>
-              </div>
-
-              <div className="px-2">
-                <h3 className="text-lg font-medium">{product.name}</h3>
-                <p className="text-gray-600 text-sm mt-1 min-h-12">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mt-4">
-                  <p className="font-medium">
-                    {product.price.toLocaleString()} 円
-                    {product.taxIncluded && (
-                      <span className="text-xs text-gray-500 ml-1">
-                        （税込）
-                      </span>
-                    )}
-                  </p>
-                  <Link
-                    href={`/products/${product.id}`}
-                    className="text-amber-500 hover:text-amber-600 text-sm inline-flex items-center transition duration-300"
-                  >
-                    詳細を見る
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 ml-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-                <div className="mt-3">
-                  <span className="inline-block border border-gray-200 rounded-full text-xs px-3 py-1 bg-gray-50 text-gray-500">
-                    のし対応可能
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
