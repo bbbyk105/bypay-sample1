@@ -109,55 +109,6 @@ const products: Product[] = [
     price: 390,
     imageUrl: "https://via.placeholder.com/400x320?text=Image+16", // ダミー画像
   },
-  {
-    id: 17,
-    name: "チーズカレー",
-    price: 370,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+17", // ダミー画像
-  },
-  {
-    id: 18,
-    name: "スープカレー",
-    price: 430,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+18", // ダミー画像
-  },
-  // 4列目
-  {
-    id: 19,
-    name: "欧風ビーフカレー",
-    price: 420,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+19", // ダミー画像
-  },
-  {
-    id: 20,
-    name: "野菜ときのこのカレー",
-    price: 380,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+20", // ダミー画像
-  },
-  {
-    id: 21,
-    name: "豆腐と野菜のヘルシーカレー",
-    price: 340,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+21", // ダミー画像
-  },
-  {
-    id: 22,
-    name: "チキンとほうれん草のカレー",
-    price: 370,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+22", // ダミー画像
-  },
-  {
-    id: 23,
-    name: "カシミールカレー",
-    price: 400,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+23", // ダミー画像
-  },
-  {
-    id: 24,
-    name: "ひよこ豆のカレー",
-    price: 360,
-    imageUrl: "https://via.placeholder.com/400x320?text=Image+24", // ダミー画像
-  },
 ];
 
 const ProductGrid = () => {
