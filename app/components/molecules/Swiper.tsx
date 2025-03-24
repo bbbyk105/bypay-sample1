@@ -21,7 +21,7 @@ const SwiperComponent = () => {
       autoplay={{ delay: 3000, disableOnInteraction: false }}
       loop={true}
       effect="fade"
-      speed={1000}
+      speed={800}
       className="w-full"
       style={
         {
@@ -30,29 +30,19 @@ const SwiperComponent = () => {
         } as React.CSSProperties
       }
     >
-      <SwiperSlide>
-        <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh]">
-          <Image
-            src="/camera.jpg"
-            alt="camera"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      </SwiperSlide>
-
-      <SwiperSlide>
-        <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh]">
-          <Image
-            src="/headphone.jpg"
-            alt="headphone"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      </SwiperSlide>
+      {["/amachi.png", "/headphone.jpg"].map((src, index) => (
+        <SwiperSlide key={index}>
+          <div className="relative w-full h-auto min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[70vh] xl:min-h-[80vh] bg-gray-900 flex items-center justify-center">
+            <Image
+              src={src}
+              alt={`slide-${index}`}
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };
