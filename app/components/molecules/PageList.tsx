@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navItems = [
-  { href: "#", label: "ホーム" },
-  { href: "#", label: "商品一覧" },
+  { href: "/", label: "ホーム" },
+  { href: "/products", label: "商品一覧" },
   { href: "#", label: "購入方法" },
   { href: "/cart", icon: "/images/cart.svg" },
 ];

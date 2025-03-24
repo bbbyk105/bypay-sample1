@@ -12,27 +12,22 @@ const Footer = () => {
         {/* SNSリンク */}
         <div className="flex gap-6">
           <a
-            href="#"
+            href="https://x.com/byPay_official"
             className="hover:opacity-80 transform hover:scale-110 transition-transform duration-200"
             aria-label="Twitter"
           >
-            <Image
-              src="/images/twitter.svg"
-              alt="Twitter"
-              width={28}
-              height={28}
-            />
+            <Image src="/images/x.png" alt="Twitter" width={28} height={28} />
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com/bypay_official/"
             className="hover:opacity-80 transform hover:scale-110 transition-transform duration-200"
             aria-label="Instagram"
           >
             <Image
-              src="/images/instagram.svg"
+              src="/images/instagram.png"
               alt="Instagram"
-              width={28}
-              height={28}
+              width={30}
+              height={30}
             />
           </a>
         </div>
