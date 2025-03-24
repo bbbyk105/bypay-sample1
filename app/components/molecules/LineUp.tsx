@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { buttonVariants } from "../atoms/Button";
 import { ArrowRight } from "lucide-react";
 

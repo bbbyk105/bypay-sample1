@@ -2,7 +2,7 @@ import React, { JSX } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { productImages } from "@/app/data/ProductData";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 
 export type ProductsProps = {
   reverse?: boolean;
