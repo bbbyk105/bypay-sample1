@@ -6,9 +6,9 @@ import { Button } from "@/app/components/atoms/Button";
 import { Product } from "../page";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function generateStaticParams() {
@@ -25,14 +25,14 @@ export async function generateStaticParams() {
 const Page = async (props: Props) => {
   const { params } = props;
 
-  if (!params.id) {
+  if (!(await params).id) {
     notFound();
   }
 
   try {
     const product = await client.get<Product>({
       endpoint: "products",
-      contentId: params.id,
+      contentId: (await params).id,
     });
 
     if (!product) {
