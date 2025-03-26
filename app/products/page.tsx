@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/libs/client";
+import Link from "next/link";
 
-interface Product {
+export type Product = {
   id: string;
   name: string;
   price: number;
   imageURL: { url: string };
-}
+  description: string;
+};
 
 interface ProductsResponse {
   contents: Product[];
@@ -76,16 +78,18 @@ const ProductGrid = () => {
             {products.map((product) => (
               <div key={product.id} className="flex flex-col">
                 <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 mb-2">
-                  <div className="relative aspect-square">
-                    <Image
-                      src={product.imageURL.url}
-                      alt={product.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
-                      style={{ objectFit: "cover" }}
-                      className="w-full"
-                    />
-                  </div>
+                  <Link href={`/products/${product.id}`}>
+                    <div className="relative aspect-square">
+                      <Image
+                        src={product.imageURL.url}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                        style={{ objectFit: "cover" }}
+                        className="w-full"
+                      />
+                    </div>
+                  </Link>
                 </div>
 
                 <div className="mt-1">
