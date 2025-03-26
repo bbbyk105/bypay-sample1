@@ -47,17 +47,17 @@ const Header = () => {
           aria-label="メニューを開く"
         >
           <span
-            className={`absolute block w-5 h-0.5 bg-black transition-transform duration-300 ${
+            className={`absolute block w-5 h-0.5 bg-slate-300 transition-transform duration-300 ${
               isMenuOpen ? "rotate-45 translate-y-1.5" : "-translate-y-2"
             }`}
           ></span>
           <span
-            className={`absolute block w-5 h-0.5 bg-black transition-opacity duration-300 ${
+            className={`absolute block w-5 h-0.5 bg-slate-300 transition-opacity duration-300 ${
               isMenuOpen ? "opacity-0" : "opacity-100"
             }`}
           ></span>
           <span
-            className={`absolute block w-5 h-0.5 bg-black transition-transform duration-300 ${
+            className={`absolute block w-5 h-0.5 bg-slate-300 transition-transform duration-300 ${
               isMenuOpen ? "-rotate-45 -translate-y-1.5" : "translate-y-2"
             }`}
           ></span>
@@ -69,12 +69,12 @@ const Header = () => {
         <>
           {/* 背景オーバーレイ */}
           <div
-            className="fixed inset-0 bg-black bg-opacity-80 z-40 "
+            className="fixed inset-0 bg-slate-300 bg-opacity-80 z-40 "
             onClick={() => setIsMenuOpen(false)}
           />
           {/* メニュー */}
           <div
-            className={`fixed inset-0 bg-black text-white flex flex-col items-center justify-center gap-6 text-xl font-bold z-40 transition-transform duration-500 ${
+            className={`fixed inset-0 bg-slate-300 text-white flex flex-col items-center justify-center gap-6 text-xl font-bold z-40 transition-transform duration-500 ${
               isMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
           >
@@ -83,7 +83,7 @@ const Header = () => {
             <button className="text-lg border border-white px-6 py-3 rounded-lg">
               CONTACT
             </button>
-            <p className="text-xs mt-4">© NEOTOKYO</p>
+            <p className="text-xs mt-4">© bypay</p>
           </div>
         </>
       )}
