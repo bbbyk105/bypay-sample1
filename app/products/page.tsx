@@ -6,6 +6,7 @@ import { client } from "@/libs/client";
 import Link from "next/link";
 
 export type Product = {
+  priceId: string;
   id: string;
   name: string;
   price: number;
