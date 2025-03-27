@@ -22,7 +22,7 @@ type SlideProps = {
 const slides: SlideProps[] = [
   {
     id: 1,
-    image: "/camera.jpg",
+    image: "/white-shirt.webp",
     title: "New Collection",
     subtitle: "2023 Spring / Summer",
     buttonText: "Shop Now",
@@ -30,7 +30,7 @@ const slides: SlideProps[] = [
   },
   {
     id: 2,
-    image: "/headphone.jpg",
+    image: "/pafume.webp",
     title: "Minimal Design",
     subtitle: "Quality craftsmanship",
     buttonText: "Explore",
@@ -70,7 +70,7 @@ const HeroSlider: React.FC = () => {
                 className="object-cover"
               />
               <div className="absolute inset-0  bg-opacity-20" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-black text-center">
                 <h1
                   className="font-serif text-4xl md:text-5xl lg:text-6xl tracking-wider mb-4"
                   data-aos="fade-up"

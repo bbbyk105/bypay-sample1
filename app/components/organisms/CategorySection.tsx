@@ -13,19 +13,19 @@ const categories: Category[] = [
   {
     id: "1",
     name: "アクセサリー",
-    imageUrl: "/headphone.jpg",
+    imageUrl: "/accessory.webp",
     slug: "accessories",
   },
   {
     id: "2",
     name: "バッグ",
-    imageUrl: "/headphone.jpg",
+    imageUrl: "/bag.webp",
     slug: "bags",
   },
   {
     id: "3",
     name: "アパレル",
-    imageUrl: "/headphone.jpg",
+    imageUrl: "/3shirts.webp",
     slug: "apparel",
   },
 ];

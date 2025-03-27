@@ -6,7 +6,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>MAWAL - ミニマルデザインのアクセサリー</title>
+        <title>byPay - ミニマルデザインのアクセサリー</title>
         <meta
           name="description"
           content="シンプルで上質なデザインのアクセサリーとアパレルをお届けします。"
