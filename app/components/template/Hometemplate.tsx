@@ -1,41 +1,20 @@
-import EcommerceHero from "../molecules/FeaturedBanner";
-import LineUp from "../molecules/LineUp";
-import Products from "../molecules/Products";
-import SeasonalProducts from "../molecules/SeosonalProducts";
+import React from "react";
+import Header from "../organisms/Header";
+import HeroSlider from "../organisms/HeroSlider";
+import CategorySection from "../organisms/CategorySection";
+import NewArrivalsSection from "../organisms/NewArrivalsSection";
+import InstagramSection from "../organisms/InstagramSection";
 
-const HomeTemplate = () => {
+const HomeTemplate: React.FC = () => {
   return (
     <>
-      <EcommerceHero
-        slides={[
-          {
-            id: 1,
-            image: "/headphone.jpg",
-            title: "最新トレンド",
-            subtitle: "新しいコレクションをチェックしよう",
-            buttonText: "今すぐ見る",
-            buttonLink: "/shop",
-            align: "center",
-            textColor: "text-white",
-            buttonStyle: "primary",
-          },
-          {
-            id: 2,
-            image: "/camera.jpg",
-            title: "セール開催中",
-            subtitle: "最大50%OFFの特別セール",
-            buttonText: "詳細はこちら",
-            buttonLink: "/sale",
-            align: "right",
-            textColor: "text-white",
-            buttonStyle: "outline",
-          },
-        ]}
-      />
-      <LineUp />
-      <Products />
-      <Products reverse />
-      <SeasonalProducts />
+      <Header />
+      <main>
+        <HeroSlider />
+        <CategorySection />
+        <NewArrivalsSection />
+        <InstagramSection />
+      </main>
     </>
   );
 };

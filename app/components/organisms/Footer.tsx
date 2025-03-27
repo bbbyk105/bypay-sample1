@@ -1,44 +1,106 @@
-"use client";
-import Image from "next/image";
-import PageList from "../molecules/PageList";
+import React from "react";
+import Logo from "../atoms/Logo";
+import SocialIcon from "../molecules/SocialIcon";
+import { FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
+import Link from "next/link";
 
-const Footer = () => {
+// Remove React.FC and use regular function
+function Footer() {
+  // Use navItems for reusability like in the Header component
+  const navItems = [
+    { label: "About", href: "/about" },
+    { label: "Shop", href: "/shop" },
+    { label: "Collection", href: "/collection" },
+    { label: "Contact", href: "/contact" },
+  ];
+
+  const socialItems = [
+    { Icon: FaInstagram, url: "https://instagram.com", label: "Instagram" },
+    { Icon: FaFacebook, url: "https://facebook.com", label: "Facebook" },
+    { Icon: FaTwitter, url: "https://twitter.com", label: "Twitter" },
+  ];
+
   return (
-    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-10 px-6 md:px-12 lg:px-[160px]">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-        {/* ページリンク */}
-        <PageList className="flex flex-wrap justify-center gap-8 text-sm font-semibold text-gray-300 hover:text-white transition-colors duration-200" />
+    <footer className="bg-white pt-16 pb-8 border-t border-gray-100">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand Column */}
+          <div data-aos="fade-up" data-aos-duration="1000">
+            <Logo />
+            <p className="mt-4 text-sm text-gray-600 max-w-xs">
+              シンプルで上質なデザインのアクセサリーとアパレルをお届けします。
+            </p>
+          </div>
 
-        {/* SNSリンク */}
-        <div className="flex gap-6">
-          <a
-            href="https://x.com/byPay_official"
-            className="hover:opacity-80 transform hover:scale-110 transition-transform duration-200"
-            aria-label="Twitter"
+          {/* Quick Links */}
+          <div
+            className="md:text-center"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="100"
           >
-            <Image src="/images/x.png" alt="Twitter" width={28} height={28} />
-          </a>
-          <a
-            href="https://www.instagram.com/bypay_official/"
-            className="hover:opacity-80 transform hover:scale-110 transition-transform duration-200"
-            aria-label="Instagram"
+            <h3 className="text-sm font-medium mb-4 tracking-wider">
+              ナビゲーション
+            </h3>
+            <ul className="space-y-2">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-gray-600 hover:text-black transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social & Newsletter */}
+          <div
+            className="md:text-right"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="200"
           >
-            <Image
-              src="/images/instagram.png"
-              alt="Instagram"
-              width={30}
-              height={30}
-            />
-          </a>
+            <h3 className="text-sm font-medium mb-4 tracking-wider">
+              ソーシャルメディア
+            </h3>
+            <div className="flex space-x-4 md:justify-end mb-6">
+              {socialItems.map((social) => (
+                <SocialIcon
+                  key={social.label}
+                  Icon={social.Icon}
+                  url={social.url}
+                  label={social.label}
+                />
+              ))}
+            </div>
+
+            {/* <h3 className="text-sm font-medium mb-4 tracking-wider">
+              ニュースレター
+            </h3>
+            <div className="flex border-b border-gray-300">
+              <input
+                type="email"
+                placeholder="メールアドレス"
+                className="w-full py-2 bg-transparent outline-none text-sm"
+              />
+              <button className="whitespace-nowrap text-sm font-medium">
+                登録
+              </button>
+            </div> */}
+          </div>
+        </div>
+
+        <div className="mt-12 pt-6 border-t border-gray-100 text-center">
+          <p className="text-xs text-gray-500">
+            &copy; {new Date().getFullYear()} byPay. All rights reserved.
+          </p>
         </div>
       </div>
-
-      {/* 著作権表記 */}
-      <p className="text-center text-xs mt-8 text-gray-400">
-        © 2025 byPay. All Rights Reserved.
-      </p>
     </footer>
   );
-};
+}
 
 export default Footer;

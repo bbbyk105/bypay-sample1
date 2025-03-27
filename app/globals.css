@@ -129,3 +129,14 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: white !important;
+  opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
