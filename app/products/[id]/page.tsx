@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/app/components/atoms/Button";
 import { Product } from "../page";
+import { BuyNowButton } from "@/app/components/organisms/BuyNowButton";
 
 type Props = {
   params: Promise<{
@@ -85,13 +86,7 @@ const Page = async (props: Props) => {
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 カートに追加
               </Button>
-              <Button
-                variant="outline"
-                className="w-full border-gray-300 hover:bg-gray-100"
-                size="lg"
-              >
-                今すぐ購入
-              </Button>
+              <BuyNowButton priceId={product.priceId} />
             </div>
           </div>
         </div>

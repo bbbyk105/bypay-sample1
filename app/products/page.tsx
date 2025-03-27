@@ -4,8 +4,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/libs/client";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export type Product = {
+  priceId: string;
   id: string;
   name: string;
   price: number;
@@ -25,9 +28,16 @@ const ProductGrid = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const limit = 10; // MicroCMSの1ページあたりの上限
+  const limit = 10;
 
   useEffect(() => {
+    // AOSの初期化
+    AOS.init({
+      duration: 800,
+      once: false,
+      mirror: true,
+    });
+
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -38,7 +48,6 @@ const ProductGrid = () => {
         });
 
         setProducts(data.contents);
-        // 総ページ数を計算
         setTotalPages(Math.ceil(data.totalCount / limit));
       } catch (error) {
         console.error("商品データの取得に失敗しました:", error);
@@ -48,87 +57,122 @@ const ProductGrid = () => {
     };
 
     fetchProducts();
-  }, [currentPage]); // currentPageが変更されたら再取得
+  }, [currentPage]);
+
+  useEffect(() => {
+    // ページ変更時にAOSをリフレッシュ
+    if (!loading) {
+      AOS.refresh();
+    }
+  }, [loading]);
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0); // ページトップにスクロール
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      window.scrollTo(0, 0); // ページトップにスクロール
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="bg-gray-50 p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">商品一覧</h1>
+    <div className="bg-gradient-to-b from-gray-50 to-white py-16">
+      <div className="container mx-auto px-4">
+        <h1
+          className="text-4xl font-bold mb-2 text-center text-gray-900"
+          data-aos="fade-down"
+        >
+          商品コレクション
+        </h1>
+        <p
+          className="text-gray-600 text-center mb-12 max-w-2xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          byPayの厳選されたコレクションをご覧ください。高品質で洗練されたデザインの商品をお届けします。
+        </p>
 
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <p className="text-gray-500">読み込み中...</p>
-        </div>
-      ) : (
-        <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
-            {products.map((product) => (
-              <div key={product.id} className="flex flex-col">
-                <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 mb-2">
-                  <Link href={`/products/${product.id}`}>
-                    <div className="relative aspect-square">
-                      <Image
-                        src={product.imageURL.url}
-                        alt={product.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
-                        style={{ objectFit: "cover" }}
-                        className="w-full"
-                      />
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 gap-y-10 mb-16">
+              {products.map((product, index) => (
+                <div
+                  key={product.id}
+                  className="flex flex-col group"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 50}
+                >
+                  <Link
+                    href={`/products/${product.id}`}
+                    className="block overflow-hidden"
+                  >
+                    <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 mb-3 relative">
+                      <div className="relative aspect-square overflow-hidden">
+                        <Image
+                          src={product.imageURL.url}
+                          alt={product.name}
+                          fill
+                          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                          style={{ objectFit: "cover" }}
+                          className="transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
                     </div>
                   </Link>
+
+                  <div className="mt-2 px-1">
+                    <Link href={`/products/${product.id}`} className="block">
+                      <h3 className="text-sm text-gray-800 font-medium line-clamp-2 mb-1 group-hover:text-gray-600 transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-lg font-bold text-gray-900">
+                        {product.price.toLocaleString()}
+                        <span className="text-xs ml-1">円</span>
+                      </p>
+                    </Link>
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                <div className="mt-1">
-                  <h3 className="text-xs text-gray-800 font-medium line-clamp-2 mb-1 leading-tight">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm font-bold">
-                    {product.price}
-                    <span className="text-xs">円</span>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* ページネーション */}
-          <div className="mt-8 flex justify-center gap-4 items-center">
-            <button
-              onClick={handlePrev}
-              className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={currentPage === 1}
+            {/* ページネーション */}
+            <div
+              className="mt-12 flex justify-center gap-6 items-center"
+              data-aos="fade-up"
             >
-              前へ
-            </button>
+              <button
+                onClick={handlePrev}
+                className="bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-5 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
+                disabled={currentPage === 1}
+              >
+                前へ
+              </button>
 
-            <span className="text-sm font-medium">
-              {currentPage} / {totalPages}ページ
-            </span>
+              <span className="text-sm font-medium bg-white px-4 py-2 rounded-lg shadow-sm">
+                {currentPage} / {totalPages}ページ
+              </span>
 
-            <button
-              onClick={handleNext}
-              className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={currentPage === totalPages}
-            >
-              次へ
-            </button>
-          </div>
-        </>
-      )}
+              <button
+                onClick={handleNext}
+                className="bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-5 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
+                disabled={currentPage === totalPages}
+              >
+                次へ
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
