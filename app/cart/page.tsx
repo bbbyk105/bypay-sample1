@@ -1,35 +1,27 @@
 "use client";
 
-import { cn } from "@/libs/utils";
 import Link from "next/link";
-import React, { useState, useEffect, JSX } from "react";
-import { Button } from "../components/atoms/Button";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { BuyNowButton } from "../components/organisms/BuyNowButton";
+import { useCart } from "@/app/hooks/useCart";
+import CustomButton from "../components/atoms/CustomButton"; // 独自のボタンコンポーネントをインポート
 
-// 商品アイテムの型定義
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+const CartPage = () => {
+  // カスタムフックを使用してカート機能を取得
+  const {
+    cartDetails,
+    cartCount,
+    totalPrice,
+    incrementCartItem,
+    decrementCartItem,
+    removeCartItem,
+    handleCheckout,
+  } = useCart();
 
-const CartPage = (): JSX.Element => {
-  // カート内の商品を管理するステート
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    // サンプルデータ - 実際の実装ではAPI等からデータを取得
-    {
-      id: 1,
-      name: "サンプル商品1",
-      price: 2980,
-      quantity: 1,
-      image: "/images/product1.jpg",
-    },
-  ]);
+  // カートアイテムを配列に変換
+  const cartItems = Object.values(cartDetails || {});
 
   // AOSの初期化
   useEffect(() => {
@@ -40,32 +32,18 @@ const CartPage = (): JSX.Element => {
     });
   }, []);
 
-  // 数量変更ハンドラー
-  const updateQuantity = (id: number, newQuantity: number): void => {
-    if (newQuantity < 1) return; // 1未満の数量は許可しない
-
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  // 税抜き価格計算 (税込価格から税抜き価格を計算)
+  const calculatePriceWithoutTax = () => {
+    return Math.floor((totalPrice || 0) / 1.1);
   };
 
-  // 商品削除ハンドラー
-  const removeItem = (id: number): void => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
-
-  // 合計金額の計算
-  const calculateTotal = (): number => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+  // 消費税額計算 (税込み価格から税額を計算)
+  const calculateTaxAmount = () => {
+    return (totalPrice || 0) - calculatePriceWithoutTax();
   };
 
   // カートが空の場合
-  if (cartItems.length === 0) {
+  if (!cartItems.length) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
         {/* カートの空メッセージ */}
@@ -75,15 +53,13 @@ const CartPage = (): JSX.Element => {
           </h3>
 
           <Link href="/">
-            <Button
-              className={cn(
-                "bg-gray-300 hover:bg-amber-600 shadow-lg transition-all duration-300"
-              )}
+            <CustomButton
+              className="shadow-lg transition-all duration-300"
               size="lg"
-              variant="default"
+              variant="subtle"
             >
               買い物を続ける
-            </Button>
+            </CustomButton>
           </Link>
         </div>
 
@@ -106,15 +82,8 @@ const CartPage = (): JSX.Element => {
 
   // カートに商品がある場合
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 mt-16">
       <div className="max-w-6xl mx-auto">
-        <h1
-          className="text-3xl font-bold text-gray-900 mb-8 text-center"
-          data-aos="fade-down"
-        >
-          ショッピングカート
-        </h1>
-
         <div className="flex flex-col lg:flex-row gap-8">
           {/* カート商品リスト */}
           <div className="lg:w-2/3" data-aos="fade-up" data-aos-delay="100">
@@ -131,7 +100,7 @@ const CartPage = (): JSX.Element => {
                       {/* 商品画像 */}
                       <div className="relative w-full h-full">
                         <Image
-                          src={item.image}
+                          src={item.image || "/images/placeholder.jpg"}
                           alt={item.name}
                           fill
                           className="object-cover"
@@ -157,10 +126,9 @@ const CartPage = (): JSX.Element => {
                       <div className="mt-4 sm:mt-0 flex flex-col sm:items-end">
                         <div className="flex items-center border border-gray-300 rounded-md">
                           <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors rounded-l-md"
+                            onClick={() => decrementCartItem(item.id)}
+                            disabled={item.quantity <= 1}
+                            className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             -
                           </button>
@@ -168,9 +136,7 @@ const CartPage = (): JSX.Element => {
                             {item.quantity}
                           </span>
                           <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
+                            onClick={() => incrementCartItem(item.id)}
                             className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors rounded-r-md"
                           >
                             +
@@ -178,7 +144,7 @@ const CartPage = (): JSX.Element => {
                         </div>
 
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeCartItem(item.id)}
                           className="mt-4 text-sm text-red-600 hover:text-red-800 transition-colors"
                         >
                           削除
@@ -193,12 +159,9 @@ const CartPage = (): JSX.Element => {
             {/* 買い物を続ける */}
             <div className="mt-6" data-aos="fade-up">
               <Link href="/">
-                <Button
-                  className={cn(
-                    "bg-gray-300 hover:bg-gray-400 text-gray-800 shadow-md transition-all duration-300"
-                  )}
-                  size="default"
-                  variant="outline"
+                <CustomButton
+                  className="shadow-md transition-all duration-300"
+                  variant="subtle"
                 >
                   <svg
                     className="w-4 h-4 mr-2"
@@ -215,7 +178,7 @@ const CartPage = (): JSX.Element => {
                     ></path>
                   </svg>
                   買い物を続ける
-                </Button>
+                </CustomButton>
               </Link>
             </div>
           </div>
@@ -227,38 +190,46 @@ const CartPage = (): JSX.Element => {
                 注文サマリー
               </h2>
 
-              {/* 小計 */}
+              {/* 小計（税抜） */}
               <div className="flex justify-between mb-2">
-                <p className="text-gray-700">小計</p>
                 <p className="text-gray-700">
-                  ¥{calculateTotal().toLocaleString()}
+                  小計（税抜）({cartCount || 0}点)
+                </p>
+                <p className="text-gray-700">
+                  ¥{calculatePriceWithoutTax().toLocaleString()}
                 </p>
               </div>
 
               {/* 税金 */}
               <div className="flex justify-between mb-4">
-                <p className="text-gray-700">消費税</p>
+                <p className="text-gray-700">消費税（10%）</p>
                 <p className="text-gray-700">
-                  ¥{Math.floor(calculateTotal() * 0.1).toLocaleString()}
+                  ¥{calculateTaxAmount().toLocaleString()}
                 </p>
               </div>
 
               {/* 区切り線 */}
               <div className="border-t border-gray-200 my-4"></div>
 
-              {/* 合計 */}
+              {/* 合計（税込） */}
               <div className="flex justify-between mb-6">
-                <p className="text-lg font-semibold text-gray-900">合計</p>
                 <p className="text-lg font-semibold text-gray-900">
-                  ¥
-                  {(
-                    calculateTotal() + Math.floor(calculateTotal() * 0.1)
-                  ).toLocaleString()}
+                  合計（税込）
+                </p>
+                <p className="text-lg font-semibold text-gray-900">
+                  ¥{totalPrice?.toLocaleString() || "0"}
                 </p>
               </div>
 
               {/* 購入ボタン */}
-              <BuyNowButton />
+              <CustomButton
+                className="w-full transition-all duration-300"
+                size="lg"
+                variant="subtle"
+                onClick={handleCheckout}
+              >
+                今すぐ購入する
+              </CustomButton>
 
               {/* クーポンコード */}
               <div className="mt-6">
@@ -275,15 +246,9 @@ const CartPage = (): JSX.Element => {
                     className="flex-1 min-w-0 border border-gray-300 rounded-l-md px-3 py-2 text-gray-900 focus:ring-amber-500 focus:border-amber-500"
                     placeholder="COUPON"
                   />
-                  <Button
-                    className={cn(
-                      "bg-gray-800 hover:bg-gray-900 text-white rounded-l-none"
-                    )}
-                    size="default"
-                    variant="default"
-                  >
+                  <CustomButton className="rounded-l-none" variant="subtle">
                     適用
-                  </Button>
+                  </CustomButton>
                 </div>
               </div>
             </div>
