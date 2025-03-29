@@ -7,15 +7,7 @@ import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import SearchBar from "../components/molecules/SearchBar";
-
-export type Product = {
-  priceId: string;
-  id: string;
-  name: string;
-  price: number;
-  imageURL: { url: string };
-  description: string;
-};
+import { Product } from "../types/Product";
 
 interface ProductsResponse {
   contents: Product[];

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/app/components/atoms/Button";
-import { Product } from "../page";
+import { Product } from "../../types/Product";
 import { BuyNowButton } from "@/app/components/organisms/BuyNowButton";
 
 type Props = {
