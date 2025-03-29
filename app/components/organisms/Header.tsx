@@ -10,11 +10,13 @@ import {
   HiOutlineX,
 } from "react-icons/hi";
 import Link from "next/link";
+import { useCart } from "@/app/hooks/useCart";
 
 const Header: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { cartCount = 0 } = useCart() || {};
 
   const navItems = [
     { label: "home", href: "/" },
@@ -56,9 +58,14 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-4">
             <Link
               href="/cart"
-              className="text-black hover:opacity-75 transition-opacity"
+              className="text-black hover:opacity-75 transition-opacity relative"
             >
               <HiOutlineShoppingBag size={20} />
+              {(cartCount || 0) > 0 && (
+                <span className="absolute -top-2 -right-2 bg-slate-300 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount || 0}
+                </span>
+              )}
             </Link>
             <button
               className="md:hidden text-black"
