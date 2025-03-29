@@ -7,16 +7,7 @@ import Link from "next/link";
 import SearchBar from "../components/molecules/SearchBar";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-// ProductGridコンポーネントと同じ型定義を使用
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  imageURL: { url: string };
-  description: string;
-  priceId?: string;
-};
+import { Product } from "../types/Product";
 
 interface SearchResults {
   contents: Product[];
@@ -59,8 +50,6 @@ export default function SearchPage() {
 
         const data = await response.json();
 
-        // APIレスポンスのフィールド名を変換（必要に応じて）
-        // これは、APIのレスポンス形式によって異なる可能性があります
         const mappedData: SearchResults = {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           contents: data.contents.map((item: any) => ({

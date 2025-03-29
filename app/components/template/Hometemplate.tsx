@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../organisms/Header";
 import HeroSlider from "../organisms/HeroSlider";
 import CategorySection from "../organisms/CategorySection";
-import NewArrivalsSection from "../organisms/NewArrivalsSection";
 import InstagramSection from "../organisms/InstagramSection";
+import PickUpSection from "../organisms/PickUpSection";
 
 const HomeTemplate: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ const HomeTemplate: React.FC = () => {
       <main>
         <HeroSlider />
         <CategorySection />
-        <NewArrivalsSection />
+        <PickUpSection />
         <InstagramSection />
       </main>
     </>
