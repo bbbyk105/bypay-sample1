@@ -10,39 +10,39 @@ const products = [
     id: "1",
     name: "シルバーリング",
     price: 12800,
-    imageUrl: "/images/product-1.jpg",
+    imageUrl: "/images/silver-ring.webp",
     slug: "silver-ring",
   },
   {
     id: "2",
-    name: "ゴールドネックレス",
+    name: "ゴールドリング",
     price: 18600,
-    imageUrl: "/images/product-2.jpg",
+    imageUrl: "/images/gold-ring.webp",
     slug: "gold-necklace",
   },
   {
     id: "3",
     name: "パールイヤリング",
     price: 14500,
-    imageUrl: "/images/product-3.jpg",
+    imageUrl: "/images/pearl.webp",
     slug: "pearl-earrings",
   },
   {
     id: "4",
     name: "レザーバッグ",
     price: 32000,
-    imageUrl: "/images/product-4.jpg",
+    imageUrl: "/images/leather-bag.webp",
     slug: "leather-bag",
   },
 ];
 
-const NewArrivalsSection: React.FC = () => {
+const PickUpSection: React.FC = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <SectionTitle
-          title="New Arrivals"
-          subtitle="新着アイテム"
+          title="Pickc up"
+          subtitle="おすすめアイテム"
           centered
           data-aos="fade-up"
           data-aos-duration="1000"
@@ -75,4 +75,4 @@ const NewArrivalsSection: React.FC = () => {
   );
 };
 
-export default NewArrivalsSection;
+export default PickUpSection;

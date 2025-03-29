@@ -8,10 +8,9 @@ import Link from "next/link";
 function Footer() {
   // Use navItems for reusability like in the Header component
   const navItems = [
-    { label: "About", href: "/about" },
+    { label: "Home", href: "/" },
     { label: "Shop", href: "/shop" },
-    { label: "Collection", href: "/collection" },
-    { label: "Contact", href: "/contact" },
+    { label: "Caution", href: "/caution" },
   ];
 
   const socialItems = [

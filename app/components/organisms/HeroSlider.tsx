@@ -24,9 +24,9 @@ const slides: SlideProps[] = [
     id: 1,
     image: "/white-shirt.webp",
     title: "New Collection",
-    subtitle: "2023 Spring / Summer",
+    subtitle: "2025 Spring / Summer",
     buttonText: "Shop Now",
-    buttonLink: "/shop",
+    buttonLink: "/products",
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const slides: SlideProps[] = [
     title: "Minimal Design",
     subtitle: "Quality craftsmanship",
     buttonText: "Explore",
-    buttonLink: "/collection",
+    buttonLink: "/products",
   },
 ];
 
@@ -92,7 +92,7 @@ const HeroSlider: React.FC = () => {
                   <Button
                     variant="outline"
                     size="md"
-                    className="border-white text-white hover:bg-white hover:text-black"
+                    className="border-black text-black hover:bg-black hover:text-black"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"

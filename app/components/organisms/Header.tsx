@@ -20,7 +20,6 @@ const Header: React.FC = () => {
     { label: "home", href: "/" },
     { label: "Shop", href: "/products" },
     { label: "Caution", href: "/caution" },
-    { label: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {

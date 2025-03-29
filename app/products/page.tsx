@@ -6,15 +6,8 @@ import { client } from "@/libs/client";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-export type Product = {
-  priceId: string;
-  id: string;
-  name: string;
-  price: number;
-  imageURL: { url: string };
-  description: string;
-};
+import SearchBar from "../components/molecules/SearchBar";
+import { Product } from "../types/Product";
 
 interface ProductsResponse {
   contents: Product[];
@@ -82,20 +75,10 @@ const ProductGrid = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white py-16">
-      <div className="container mx-auto px-4">
-        <h1
-          className="text-4xl font-bold mb-2 text-center text-gray-900"
-          data-aos="fade-down"
-        >
-          商品コレクション
-        </h1>
-        <p
-          className="text-gray-600 text-center mb-12 max-w-2xl mx-auto"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          byPayの厳選されたコレクションをご覧ください。高品質で洗練されたデザインの商品をお届けします。
-        </p>
+      <div className="container mx-auto px-4 pt-12">
+        <div className="mb-10 flex justify-center" data-aos="fade-down">
+          <SearchBar placeholder="商品を検索..." />
+        </div>
 
         {loading ? (
           <div className="flex justify-center items-center h-64">

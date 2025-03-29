@@ -5,7 +5,7 @@ import { Button } from "@/app/components/atoms/Button";
 import { Loader2, CreditCard } from "lucide-react";
 
 type Props = {
-  priceId: string;
+  priceId?: string;
 };
 
 export const BuyNowButton = ({ priceId }: Props) => {
