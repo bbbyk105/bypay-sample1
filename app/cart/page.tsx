@@ -254,8 +254,8 @@ const CartPage = () => {
                 今すぐ購入する
               </CustomButton>
 
-              {/* 決済方法案内（モバイル向け追加情報） */}
-              <div className="mt-4 flex justify-center gap-3">
+              {/* 決済方法案内（追加された決済方法を含む） */}
+              <div className="mt-4 flex justify-center flex-wrap gap-3">
                 <div className="w-10 h-6 relative">
                   <Image
                     src="/images/cards/visa.webp"
@@ -288,9 +288,41 @@ const CartPage = () => {
                     className="object-contain"
                   />
                 </div>
+                <div className="w-10 h-8 relative">
+                  <Image
+                    src="/images/cards/applepay.webp"
+                    alt="Apple Pay"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="w-10 h-8 relative">
+                  <Image
+                    src="/images/cards/googlepay.webp"
+                    alt="Google Pay"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="w-10 h-8 relative">
+                  <Image
+                    src="/images/cards/wechat.webp"
+                    alt="WeChat Pay"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="w-10 h-8 relative">
+                  <Image
+                    src="/images/cards/alipay.webp"
+                    alt="Alipay"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </div>
               <p className="text-xs text-center text-gray-500 mt-2">
-                各種クレジットカードがご利用いただけます
+                各種クレジットカード・電子決済がご利用いただけます
               </p>
             </div>
           </div>

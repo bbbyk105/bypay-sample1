@@ -1,4 +1,3 @@
-// hooks/useCart.ts
 import { useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import { toast } from "react-hot-toast";
@@ -15,6 +14,7 @@ export interface CartProduct {
 
 export function useCart() {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const {
     addItem,
@@ -24,7 +24,7 @@ export function useCart() {
     cartDetails,
     cartCount,
     totalPrice,
-    redirectToCheckout,
+    clearCart,
   } = useShoppingCart();
 
   // カートに商品を追加する関数
@@ -49,6 +49,7 @@ export function useCart() {
         },
         sku: product.id,
         price: product.price,
+        currency: product.currency || "jpy",
         quantity: product.quantity || 1,
       };
 
@@ -78,16 +79,51 @@ export function useCart() {
     toast.success("商品をカートから削除しました");
   };
 
-  // チェックアウトページへリダイレクト
+  // カスタムAPIエンドポイントを使用してチェックアウト
   const handleCheckout = async () => {
+    setIsCheckingOut(true);
+
     try {
-      const result = await redirectToCheckout();
-      if (result?.error) {
-        toast.error(result.error.message || "チェックアウトに失敗しました");
+      // カート内の商品情報を取得
+      const cartItems = Object.values(cartDetails || {}).map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        currency: item.currency || "jpy",
+        quantity: item.quantity,
+        image: item.image,
+        description: item.description,
+      }));
+
+      // カスタムAPIエンドポイントを呼び出してチェックアウトセッションを作成
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cartItems }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.details || "チェックアウトセッションの作成に失敗しました"
+        );
+      }
+
+      const { url } = await response.json();
+
+      // ユーザーをStripeのチェックアウトページにリダイレクト
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error("チェックアウトURLが見つかりません");
       }
     } catch (error) {
       console.error("チェックアウト中にエラーが発生しました:", error);
       toast.error("チェックアウトに失敗しました。もう一度お試しください。");
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -98,8 +134,10 @@ export function useCart() {
     removeCartItem,
     handleCheckout,
     isAddingToCart,
+    isCheckingOut,
     cartDetails,
     cartCount,
     totalPrice,
+    clearCart,
   };
 }
