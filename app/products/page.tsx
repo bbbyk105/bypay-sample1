@@ -120,7 +120,7 @@ const ProductGrid = () => {
                       </h3>
                       <p className="text-lg font-bold text-gray-900">
                         {product.price.toLocaleString()}
-                        <span className="text-xs ml-1">円</span>
+                        <span className="text-xs ml-1">円　(税込)</span>
                       </p>
                     </Link>
                   </div>

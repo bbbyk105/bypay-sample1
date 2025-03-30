@@ -6,6 +6,7 @@ import { Product } from "../../types/Product";
 import { BuyNowButton } from "@/app/components/organisms/BuyNowButton";
 import { AddToCartButton } from "@/app/components/molecules/AddToCart";
 import { CartProduct } from "@/app/hooks/useCart";
+import ProductDescription from "@/app/components/molecules/ProductDescription";
 
 type Props = {
   params: Promise<{
@@ -46,10 +47,14 @@ const Page = async (props: Props) => {
       id: product.id,
       name: product.name,
       price: product.price,
-      currency: "JPY", // 日本円を想定
+      currency: "JPY",
       image: product.imageURL.url,
       description: product.description,
     };
+
+    // 商品説明のHTMLをサニタイズ
+    // DOMPurifyはクライアントサイドでのみ動作するため、サーバーコンポーネントでは使用できない
+    // 代わりに、クライアントコンポーネントを作成して、そこでサニタイズを行う
 
     return (
       <div className="bg-white text-gray-800 min-h-screen mt-16">
@@ -82,20 +87,14 @@ const Page = async (props: Props) => {
               <div className="flex flex-col space-y-2">
                 <span className="text-4xl font-light tracking-tight text-gray-900">
                   {product.price.toLocaleString()}
-                  <span className="text-xl ml-1 text-gray-500">円</span>
-                </span>
-                <span className="text-sm font-medium py-1 px-3 bg-gray-100 text-emerald-600 inline-block w-fit rounded-full">
-                  在庫あり
+                  <span className="text-xl ml-1 text-gray-500">円　(税込)</span>
                 </span>
               </div>
 
               {/* 商品説明 */}
               {product.description && (
                 <div className="border-t border-gray-200 pt-6">
-                  <div
-                    className="prose prose-sm max-w-none text-gray-600 font-light leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: product.description }}
-                  />
+                  <ProductDescription description={product.description} />
                 </div>
               )}
 
