@@ -69,11 +69,10 @@ const CartPage = () => {
           data-aos="fade-up"
           data-aos-delay="300"
         >
-          <h4 className="text-lg font-semibold text-gray-900">後で購入</h4>
           <p className="text-gray-600 mt-2 text-sm leading-relaxed">
             保存されたアイテムはまだありません。
             <br />
-            このリストには、後で購入するアイテムを追加できます。
+            このリストには、購入するアイテムを追加できます。
           </p>
         </div>
       </div>

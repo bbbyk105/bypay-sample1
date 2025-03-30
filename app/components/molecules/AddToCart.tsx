@@ -5,6 +5,7 @@ import { ShoppingCart } from "lucide-react";
 import { Button } from "../atoms/Button";
 import { CartProduct, useCart } from "@/app/hooks/useCart";
 import CustomButton from "../atoms/CustomButton";
+import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   product: CartProduct;
@@ -21,6 +22,16 @@ export const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     addToCart({
       ...product,
       quantity,
+    });
+
+    // Sonner トースト通知を表示
+    toast.success("カートに追加しました", {
+      description: `${product.name} × ${quantity}点をカートに追加しました`,
+      // アクションボタンを追加（オプション）
+      action: {
+        label: "カートを見る",
+        onClick: () => (window.location.href = "/cart"),
+      },
     });
   };
 
