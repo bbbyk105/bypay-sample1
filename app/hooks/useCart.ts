@@ -32,6 +32,9 @@ export function useCart() {
     setIsAddingToCart(true);
 
     try {
+      // 数量の設定
+      const quantity = product.quantity || 1;
+
       // Stripeに渡すデータ形式に変換
       const item = {
         ...product,
@@ -50,11 +53,12 @@ export function useCart() {
         sku: product.id,
         price: product.price,
         currency: product.currency || "jpy",
-        quantity: product.quantity || 1,
       };
 
-      addItem(item);
-      toast.success(`${product.name}をカートに追加しました`);
+      // 明示的に数量を指定
+      addItem(item, { count: quantity });
+
+      toast.success(`${product.name}を${quantity}点カートに追加しました`);
     } catch (error) {
       console.error("カートへの追加に失敗しました:", error);
       toast.error("カートへの追加に失敗しました。もう一度お試しください。");
