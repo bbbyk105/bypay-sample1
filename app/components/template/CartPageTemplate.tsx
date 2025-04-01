@@ -1,7 +1,7 @@
 import React from "react";
-import CartItemList from "../organisms/CartItemList";
-import OrderSummary from "../organisms/OrderSummary";
-import EmptyCartMessage from "../organisms/EmptyCartMessage";
+import CartItemList from "../organisms/Cart/CartItemList";
+import OrderSummary from "../organisms/Cart/OrderSummary";
+import EmptyCartMessage from "../organisms/Cart/EmptyCartMessage";
 
 type CartItem = {
   id: string;

@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import CartCounter from "../atoms/CartCounter";
-import CartItemImage from "../atoms/CartItemImage";
-import CartItemDetails from "../molecules/CartItemDetails";
-import CustomButton from "../atoms/CustomButton";
+import CartCounter from "../../atoms/CartCounter";
+import CartItemImage from "../../atoms/CartItemImage";
+import CartItemDetails from "../../molecules/CartItemDetails";
+import CustomButton from "../../atoms/CustomButton";
 
 type CartItem = {
   id: string;

@@ -1,7 +1,7 @@
 import React from "react";
-import OrderSummaryItem from "../molecules/OrderSummaryItem";
-import PaymentMethodsDisplay from "../molecules/PaymentMethodsDisplay";
-import CustomButton from "../atoms/CustomButton";
+import OrderSummaryItem from "../../molecules/OrderSummaryItem";
+import PaymentMethodsDisplay from "../../molecules/PaymentMethodsDisplay";
+import CustomButton from "../../atoms/CustomButton";
 
 type OrderSummaryProps = {
   itemCount: number;
