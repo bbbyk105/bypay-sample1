@@ -1,27 +1,43 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 export default function SuccessPage() {
-  const { clearCart } = useShoppingCart();
+  const { clearCart, cartCount = 0 } = useShoppingCart();
+  const [isCleared, setIsCleared] = useState(false);
 
   useEffect(() => {
-    // カートをクリア
-    // clearCart();
+    console.log("Initial cart count:", cartCount);
 
-    // AOSの初期化
+    const clearCartData = async () => {
+      try {
+        console.log("Attempting to clear cart...");
+        await clearCart();
+        setIsCleared(true);
+        console.log("Cart cleared successfully");
+      } catch (error) {
+        console.error("Failed to clear cart:", error);
+      }
+    };
+
+    // cartCount がundefinedの場合でも安全に処理
+    if (!isCleared && (cartCount ?? 0) > 0) {
+      clearCartData();
+    } else {
+      console.log("No items in cart or already cleared");
+    }
+
     AOS.init({
       duration: 1000,
       once: true,
       easing: "ease-out",
-      // モバイルデバイスでもアニメーションを有効化
       disable: false,
     });
-  }, [clearCart]);
+  }, [clearCart, cartCount, isCleared]);
 
   return (
     <div className="container mt-32 mx-auto px-4 py-12 md:py-20 text-center flex flex-col items-center justify-center min-h-[70vh]">
