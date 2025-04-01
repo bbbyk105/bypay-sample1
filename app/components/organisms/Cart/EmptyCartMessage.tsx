@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import CustomButton from "../atoms/CustomButton";
+import CustomButton from "../../atoms/CustomButton";
 
 const EmptyCartMessage: React.FC = () => {
   return (
