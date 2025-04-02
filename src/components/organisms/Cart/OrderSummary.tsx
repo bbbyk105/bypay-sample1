@@ -7,20 +7,35 @@ type OrderSummaryProps = {
   itemCount: number;
   totalPrice: number;
   onCheckout: () => void;
+  taxRate?: number; // オプションで税率を指定可能に
 };
 
 const OrderSummary = ({
   itemCount,
   totalPrice,
   onCheckout,
+  taxRate = 0.1, // デフォルトは10%
 }: OrderSummaryProps) => {
-  const calculatePriceWithoutTax = () => {
-    return Math.floor(totalPrice / 1.1);
+  /**
+   * 消費税込みの金額から税抜き価格を計算する関数
+   * @param priceWithTax 税込み価格
+   * @returns 税抜き価格（小数点以下四捨五入）
+   */
+  const calculatePriceWithoutTax = (): number => {
+    return Math.round(totalPrice / (1 + taxRate));
   };
 
-  const calculateTaxAmount = () => {
-    return totalPrice - calculatePriceWithoutTax();
+  /**
+   * 消費税額を計算する関数
+   * @returns 消費税額（小数点以下四捨五入）
+   */
+  const calculateTaxAmount = (): number => {
+    // 税抜き価格に税率をかけて四捨五入
+    return Math.round(calculatePriceWithoutTax() * taxRate);
   };
+
+  // 税率を百分率で表示（例: 10%）
+  const taxRatePercent = (taxRate * 100).toFixed(0);
 
   return (
     <div className="lg:w-1/3" data-aos="fade-up" data-aos-delay="200">
@@ -35,7 +50,7 @@ const OrderSummary = ({
             amount={calculatePriceWithoutTax()}
           />
           <OrderSummaryItem
-            label="消費税（10%）"
+            label={`消費税（${taxRatePercent}%）`}
             amount={calculateTaxAmount()}
           />
         </div>
