@@ -10,7 +10,7 @@ import {
   HiOutlineX,
 } from "react-icons/hi";
 import Link from "next/link";
-import { useCart } from "@/app/hooks/useCart";
+import { useCart } from "@/src/hooks/useCart";
 
 const Header: React.FC = () => {
   const pathname = usePathname();

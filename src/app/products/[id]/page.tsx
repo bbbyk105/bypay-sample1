@@ -2,11 +2,11 @@ import { client } from "@/libs/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Product } from "../../types/Product";
-import { BuyNowButton } from "@/app/components/organisms/BuyNowButton";
-import { AddToCartButton } from "@/app/components/molecules/AddToCart";
-import { CartProduct } from "@/app/hooks/useCart";
-import ProductDescription from "@/app/components/molecules/ProductDescription";
+import { Product } from "../../../types/Product";
+import { CartProduct } from "@/src/hooks/useCart";
+import ProductDescription from "@/src/components/molecules/ProductDescription";
+import { AddToCartButton } from "@/src/components/molecules/AddToCart";
+import { BuyNowButton } from "@/src/components/organisms/BuyNowButton";
 
 type Props = {
   params: Promise<{

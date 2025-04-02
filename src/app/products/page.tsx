@@ -6,8 +6,8 @@ import { client } from "@/libs/client";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import SearchBar from "../components/molecules/SearchBar";
-import { Product } from "../types/Product";
+import { Product } from "../../types/Product";
+import SearchBar from "@/src/components/molecules/SearchBar";
 
 interface ProductsResponse {
   contents: Product[];

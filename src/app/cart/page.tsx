@@ -3,8 +3,8 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useCart } from "@/app/hooks/useCart";
-import CartPageTemplate from "../components/template/CartPageTemplate";
+import { useCart } from "@/src/hooks/useCart";
+import CartPageTemplate from "@/src/components/template/CartPageTemplate";
 
 const CartPage = () => {
   const {

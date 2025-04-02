@@ -1,9 +1,9 @@
 // app/search/page.tsx
 "use client";
 
+import SearchFallback from "@/src/components/molecules/SearchFallback";
+import SearchResults from "@/src/components/organisms/SearchResults";
 import React, { Suspense } from "react";
-import SearchResults from "../components/organisms/SearchResults";
-import SearchFallback from "../components/molecules/SearchFallback";
 
 export default function SearchPage() {
   return (

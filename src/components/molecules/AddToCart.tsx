@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "../atoms/Button";
-import { CartProduct, useCart } from "@/app/hooks/useCart";
 import CustomButton from "../atoms/CustomButton";
 import { toast } from "sonner";
+import { CartProduct, useCart } from "@/src/hooks/useCart";
 
 interface AddToCartButtonProps {
   product: CartProduct;

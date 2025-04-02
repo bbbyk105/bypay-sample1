@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/app/components/atoms/Button";
 import { Loader2, CreditCard } from "lucide-react";
+import { Button } from "../atoms/Button";
 
 type Props = {
   priceId?: string;
