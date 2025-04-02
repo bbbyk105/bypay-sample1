@@ -6,7 +6,8 @@ import { Product } from "../../../types/Product";
 import { CartProduct } from "@/src/hooks/useCart";
 import ProductDescription from "@/src/components/molecules/ProductDescription";
 import { AddToCartButton } from "@/src/components/molecules/AddToCart";
-import { BuyNowButton } from "@/src/components/organisms/BuyNowButton";
+import CustomButton from "@/src/components/atoms/CustomButton";
+import { ShoppingBag, ArrowRight } from "lucide-react"; // アイコンをインポート
 
 type Props = {
   params: Promise<{
@@ -52,10 +53,6 @@ const Page = async (props: Props) => {
       description: product.description,
     };
 
-    // 商品説明のHTMLをサニタイズ
-    // DOMPurifyはクライアントサイドでのみ動作するため、サーバーコンポーネントでは使用できない
-    // 代わりに、クライアントコンポーネントを作成して、そこでサニタイズを行う
-
     return (
       <div className="bg-white text-gray-800 min-h-screen mt-16">
         <div className="container mx-auto px-6 py-16 max-w-6xl">
@@ -98,22 +95,38 @@ const Page = async (props: Props) => {
                 </div>
               )}
 
-              {/* 購入ボタン */}
+              {/* ボタングループ */}
               <div className="flex flex-col space-y-4 pt-4">
+                {/* カートに追加ボタン */}
                 <AddToCartButton
                   product={cartProduct}
                   variant="default"
                   size="lg"
                   className="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 w-full rounded-none transition-colors duration-200"
                 />
-                <BuyNowButton priceId={product.priceId} />
 
-                {/* お買い物を続けるボタン */}
-                <Link
-                  href="/products"
-                  className="text-center py-3 border border-gray-400 hover:border-gray-600 text-gray-700 hover:text-gray-900 font-medium w-full transition-all duration-300 bg-transparent tracking-wide"
-                >
-                  お買い物を続ける
+                {/* カートへ行くボタン - 新規追加 */}
+                <Link href="/cart">
+                  <CustomButton
+                    variant="primary"
+                    size="lg"
+                    className="w-full rounded-none"
+                    icon={<ShoppingBag size={20} />}
+                  >
+                    カートへ進む
+                  </CustomButton>
+                </Link>
+
+                {/* お買い物を続けるボタン - カスタムボタンに変更 */}
+                <Link href="/products">
+                  <CustomButton
+                    variant="ghost"
+                    size="lg"
+                    className="w-full rounded-none hover:text-white"
+                    icon={<ArrowRight size={20} />}
+                  >
+                    お買い物を続ける
+                  </CustomButton>
                 </Link>
               </div>
             </div>
